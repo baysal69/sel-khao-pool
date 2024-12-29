@@ -51,25 +51,22 @@ static void	initial(t_utils *utils)
 	utils->readed = BUFFER_SIZE;
 	utils->trunc = -1;
 }
-#include <stdio.h>
+
 char	*get_next_line(int fd)
 {
 	static char	*line;
 	t_utils		utils;
 
 	initial(&utils);
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (freed(&line));
-	utils.buffer = malloc(BUFFER_SIZE + 1);
-	if (!utils.buffer)
-		return (freed(&line));
+	if (BUFFER_SIZE <= 0 || fd < 0 || !(utils.buffer = malloc(BUFFER_SIZE + 1)))
+		return (NULL);
 	while (utils.readed == BUFFER_SIZE && utils.trunc == -1)
-	{
+	{//loops continues readin until we read less than BF(end of file or line) OR until we find \n
 		utils.readed = read(fd, utils.buffer, BUFFER_SIZE);
 		utils.buffer[utils.readed] = '\0';
+//ensures buffer is null termineted
 		utils.left_over = line;
 		line = ft_strjoin(line, utils.buffer);
-	printf("[%s]", utils.buffer);	
 		freed(&utils.left_over);
 		utils.trunc = ft_trunc(line);
 	}
@@ -80,17 +77,17 @@ char	*get_next_line(int fd)
 		utils.next_line = trunc_line(&line, utils.trunc);
 	return (utils.next_line);
 }
-#include <fcntl.h>
+/*#include <fcntl.h>
 #include <stdio.h>
 int main (void)
 {
 	int	fd;
 	char *line;
 
-	fd = open("hope.txt", O_RDONLY);
+	fd = open("hello.txt", O_RDONLY);
 	if (fd == -1)
 	{
-		printf("%s", "got unlucky :c");
+		printf("%s\n", "got unlucky :c");
 		return (1);
 	}
 	while ((line = get_next_line(fd)) != NULL)
@@ -100,4 +97,4 @@ int main (void)
 	}
 	close(fd);
 	return (0);
-}
+}*/

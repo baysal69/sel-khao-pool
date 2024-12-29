@@ -29,13 +29,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	while (s1[i])
 	{
-		s1[i] = s2[i];
+		str[i] = s1[i];
 		i++;
 	}
 	while (s2[j])
 	{
 		str[i + j] = s2[j];
-		i++;
+		j++;
 	}
 	str[len] = '\0';
 	return (str);
@@ -45,38 +45,46 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
-	i = 0;
-	if (!str)
+	if (!str || !(*str))
 		return (0);
+	i = 0;	
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strlcpy(char *dst, char *src, int size)
+void	ft_strlcpy(char *dst, char *src, int size)
 {
 	int	i;
 
 	i = 0;
 	while (src[i] && i < size - 1)
 	{
-		src[i] = dst[i];
+		dst[i] = src[i];
 		i++;
 	}
 	dst[i] = '\0';
-	return(dst);
 }
 
 char	*ft_strdup(char *s)
 {
 	char	*str;
+	int		i;
+	int		len;
 
+	len = ft_strlen(s);
+	i = 0;
 	if (!s || !(*s))
 		return (NULL);
-	str = malloc(ft_strlen(s) + 1);
+	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
-	str = ft_strlcpy(str, s, ft_strlen(s) + 1);
+	while (s[i])
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[len] = '\0';
 	return (str);
 }
 

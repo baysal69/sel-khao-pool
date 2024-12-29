@@ -18,7 +18,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 2
 # endif
 
 typedef struct s_utils
@@ -32,7 +32,7 @@ typedef struct s_utils
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strlcpy(char *dst, char *src, int size);
+void	ft_strlcpy(char *dst, char *src, int size);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *s);
 int		ft_trunc(char *str);
