@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-khao <sel-khao <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 14:52:27 by sel-khao          #+#    #+#             */
-/*   Updated: 2024/12/23 23:49:14 by sel-khao         ###   ########.fr       */
+/*   Created: 2025/01/02 19:50:33 by sel-khao          #+#    #+#             */
+/*   Updated: 2025/01/07 17:15:56 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*freed(char **str)
 {
@@ -58,11 +58,19 @@ char	*get_next_line(int fd)
 	t_utils		utils;
 
 	initial(&utils);
-	if (BUFFER_SIZE <= 0 || fd < 0 || !(utils.buffer = malloc(BUFFER_SIZE + 1)))
-		return (NULL);
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (freed(&line[fd]));
+	utils.buffer = malloc(BUFFER_SIZE + 1);
+	if (!utils.buffer)
+		return (freed(&line[fd]));
 	while (utils.readed == BUFFER_SIZE && utils.trunc == -1)
 	{
 		utils.readed = read(fd, utils.buffer, BUFFER_SIZE);
+		if (utils.readed < 0)
+		{
+			freed(&utils.buffer);
+			return (freed(&line[fd]));			
+		}
 		utils.buffer[utils.readed] = '\0';
 		utils.left_over = line[fd];
 		line[fd] = ft_strjoin(line[fd], utils.buffer);
@@ -77,22 +85,47 @@ char	*get_next_line(int fd)
 	return (utils.next_line);
 }
 
+/* #include <fcntl.h>
+#include <stdio.h>
 int main (void)
 {
-	int	fd;
-	char *line;
+	int	fd1;
+	int	fd2;
+	int	fd3;
+	char *line1;
+	char *line2;
+	char *line3;
 
-	fd = open("hello.txt", O_RDONLY);
-	if (fd == -1)
+	fd1 = open("hi.txt", O_RDONLY);
+	fd2 = open("hey.txt", O_RDONLY);
+	fd3 = open("hope.txt", O_RDONLY);
+	if (fd1 < 0 || fd2 < 0 || fd3 < 0)
 	{
-		printf("%s\n", "got unlucky :c");
+		perror("errorino :c");
 		return (1);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (1)
 	{
-		printf("[%s]", line);
-		free(line);
+		if (line1 = get_next_line(fd1))
+		{
+			printf ("line1: [%s]", line1);
+			free(line1);			
+		}
+		if (line2 = get_next_line(fd2))
+		{
+			printf ("line2: [%s]", line2);
+			free(line2);			
+		}
+		if (line3 = get_next_line(fd3))
+		{
+			printf ("line3: [%s]", line3);
+			free(line3);			
+		}
+		if (!line1 && !line2 && !line3)
+			break;
 	}
-	close(fd);
-	return (0);
-}
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	return(0);
+} */

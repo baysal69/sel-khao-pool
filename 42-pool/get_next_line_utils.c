@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:53:48 by sel-khao          #+#    #+#             */
-/*   Updated: 2024/12/23 23:49:05 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:01:34 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		len;
 	char	*str;
 
-	j = 0;
 	if (!s1)
 		return (ft_strdup(s2));
 	len = ft_strlen(s1) + ft_strlen(s2);
@@ -27,6 +26,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!str)
 		return (NULL);
 	i = 0;
+	j = 0;
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -45,25 +45,12 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
+	i = 0;
 	if (!str || !(*str))
 		return (0);
-	i = 0;	
 	while (str[i])
 		i++;
 	return (i);
-}
-
-void	ft_strlcpy(char *dst, char *src, int size)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
 }
 
 char	*ft_strdup(char *s)
@@ -72,10 +59,10 @@ char	*ft_strdup(char *s)
 	int		i;
 	int		len;
 
-	len = ft_strlen(s);
-	i = 0;
 	if (!s || !(*s))
 		return (NULL);
+	len = ft_strlen(s);
+	i = 0;
 	str = malloc(len + 1);
 	if (!str)
 		return (NULL);

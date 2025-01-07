@@ -6,7 +6,7 @@
 /*   By: sel-khao <sel-khao <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:52:27 by sel-khao          #+#    #+#             */
-/*   Updated: 2024/12/23 23:49:14 by sel-khao         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:02:37 by sel-khao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h>
-# include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 7
 # endif
 
 typedef struct s_utils
