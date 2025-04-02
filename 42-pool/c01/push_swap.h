@@ -6,7 +6,7 @@
 /*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 20:55:31 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/03/28 15:31:36 by sara             ###   ########.fr       */
+/*   Updated: 2025/04/02 18:20:03 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,8 @@ void	ft_pb(t_ps **stack_b, t_ps **stack_a);
 void	fft_lstadd_back(t_ps **lst, t_ps *new);
 void	five_algo(t_ps **stack_a, t_ps **stack_b);
 void	radix_sort(t_ps **stack_a, t_ps **stack_b);
+int find_max_position(t_ps *stack);
+void ft_sb(t_ps **stack_b, int i);
+void    two_sort(t_ps **stack);
 
 #endif

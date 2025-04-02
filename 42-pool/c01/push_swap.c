@@ -6,7 +6,7 @@
 /*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:18:11 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/03/28 21:45:53 by sara             ###   ########.fr       */
+/*   Updated: 2025/04/02 18:21:01 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,24 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
 #include "push_swap.h"
+
+void	print_lst(t_ps *swap)
+{
+	t_ps	*tmp;
+
+	tmp = swap;
+	while (tmp)
+	{
+		if (tmp->next == NULL)
+		{
+			printf("%d\n", tmp -> num);
+			break ;
+		}
+		printf("%d--", tmp -> num);
+		tmp = tmp -> next;
+	}
+}
 
 char	**split_arg(char **av)
 {
@@ -78,12 +94,19 @@ int	main(int argc, char *argv[])
 			j++;
 		}
 	}
+	if (is_sorted(stack_a) == 1)
+		return (0);
+	if (argc == 3 || i == 2)
+		return (two_sort((&stack_a)), 0);
 	if (argc == 4 || i == 3)
 		three_args(&stack_a);
 	else if (argc <= 11 || i <= 10)
 		five_algo(&stack_a, &stack_b);
 	else
 		radix_sort(&stack_a, &stack_b);
+	print_lst(stack_a);
+	if ((is_sorted(stack_a) != 1))
+		return (write(2, "Not sorted\n", 11), 1);
 	fft_lstclear(&stack_a);
 	return (0);
 }

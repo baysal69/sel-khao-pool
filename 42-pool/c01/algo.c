@@ -6,7 +6,7 @@
 /*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:27:41 by sara              #+#    #+#             */
-/*   Updated: 2025/03/28 21:33:04 by sara             ###   ########.fr       */
+/*   Updated: 2025/04/02 18:18:45 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ void    radix_sort(t_ps **stack_a, t_ps **stack_b)
     }
 }
 
+void    two_sort(t_ps **stack)
+{
+    if ((*stack)->num > (*stack)->next->num)
+        ft_sa(stack, 1);
+}
+
 void	three_args(t_ps **stack)
 {
 	if ((*stack)->num > (*stack)->next->num
@@ -111,30 +117,25 @@ void five_algo(t_ps **stack_a, t_ps **stack_b)
     int len;
     int min_pos;
 
-    len = fft_lstsize((*stack_a));// Push 2 smallest numbers to stack_b
+    len = fft_lstsize(*stack_a);
     while (len > 3)
     {
-        min_pos = find_min_position(*stack_a);// Move the minimum value to the top of stack_a
-        if (min_pos <= len / 2)
-        {// Use rotate if position is in the first half
-            while (min_pos > 0)
-            {
-                ft_ra(stack_a, 1);
-                min_pos--;
-            }
+        min_pos = find_min_position(*stack_a);
+        if (min_pos == 0)
+        {
+            ft_pb(stack_b, stack_a);
+            len--;
         }
+        else if (min_pos <= len / 2)
+            ft_ra(stack_a, 1);
         else
-        {// Use reverse rotate if position is in the second half
-            while (min_pos < len)
-            {
-                ft_rra(stack_a, 1);
-                min_pos++;
-            }
-        }// Push the minimum value to stack_b
-        ft_pb(stack_b, stack_a);
-        len--;
-    }// Sort the remaining 3 numbers in stack_a
-    three_args(stack_a);// Push back the 2 numbers from stack_b to stack_a
+            ft_rra(stack_a, 1);
+    }
+    three_args(stack_a);
     while (*stack_b)
+    {
         ft_pa(stack_a, stack_b);
+        if ((*stack_a)->next && (*stack_a)->num > (*stack_a)->next->num)
+            ft_sa(stack_a, 1);
+    }
 }

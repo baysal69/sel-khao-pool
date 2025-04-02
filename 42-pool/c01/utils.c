@@ -6,7 +6,7 @@
 /*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:11:41 by sara              #+#    #+#             */
-/*   Updated: 2025/03/28 21:49:13 by sara             ###   ########.fr       */
+/*   Updated: 2025/04/02 18:01:54 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,52 @@ int find_min_position(t_ps *stack)
 {
     t_ps *tmp;
     int min;
+    int min_pos;
     int current_pos;
 
+    if (!stack)
+        return (-1);
+        
     tmp = stack;
     min = tmp->num;
+    min_pos = 0;
     current_pos = 0;
+    
     while (tmp)
     {
         if (tmp->num < min)
+        {
             min = tmp->num;
+            min_pos = current_pos;
+        }
         tmp = tmp->next;
         current_pos++;
     }
-    return (min);
+    return (min_pos);
+}
+
+int find_max_position(t_ps *stack)
+{
+    t_ps *tmp;
+    int max;
+	int	max_pos;
+    int current_pos;
+
+    tmp = stack;
+    max = tmp->num;
+	max_pos = 0;
+    current_pos = 0;
+    while (tmp)
+    {
+        if (tmp->num > max)
+		{
+			max = current_pos;
+        	max = tmp->num;
+		}
+        tmp = tmp->next;
+        current_pos++;
+    }
+    return (max_pos);
 }
 
 int	is_sorted(t_ps *stack)

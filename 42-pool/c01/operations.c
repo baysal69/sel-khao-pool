@@ -6,7 +6,7 @@
 /*   By: sara <sara@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:24:28 by sel-khao          #+#    #+#             */
-/*   Updated: 2025/03/28 21:35:22 by sara             ###   ########.fr       */
+/*   Updated: 2025/04/02 17:13:38 by sara             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void ft_rra(t_ps **stack_a, int i)
         write(1, "rra\n", 4);
 }
 
-
 void ft_sa(t_ps **stack_a, int i)
 {
     t_ps *first;
@@ -93,4 +92,19 @@ void ft_sa(t_ps **stack_a, int i)
     *stack_a = second;
     if (i == 1)
         write(1, "sa\n", 3);
+}
+void ft_sb(t_ps **stack_b, int i)
+{
+    t_ps *first;
+    t_ps *second;
+
+    if (*stack_b == NULL || (*stack_b)->next == NULL)
+        return ;
+    first = *stack_b;
+    second = first->next;
+    first->next = second->next;
+    second->next = first;
+    *stack_b = second;
+    if (i == 1)
+        write(1, "sb\n", 3);
 }
